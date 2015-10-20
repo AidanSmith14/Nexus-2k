@@ -1,13 +1,16 @@
-/* Program name:
-* Project file name:
-* Author: Aidan Smith
-* Date: 08/10/2015
-* Language: C++
-* Platform: Microsoft Visual Studio 2013
-* Purpose: Game to be enjoyed and an assignment required for the C++ paper
-* Description: 
+/* Program name:		Nexus2k
+* Project file name:	NexusAssignment
+* Author:				Aidan Smith
+* Date:					08/10/2015
+* Language:				C++
+* Platform:				Microsoft Visual Studio 2013
+* Purpose:				Game to be enjoyed and an assignment required for the C++ paper
+* Description:			Connect 5 pieces of the same color to clear a line. You receive points
+						for each line cleared. lines can be cleared vertically, horizontally or
+						diagonally. 3 pieces new pieces are spawned each time a move is done except
+						when pieces are deleted. The game is over when the board is full.
 * Known Bugs:
-* Additional Features: Bonus points for clearing a full line
+* Additional Features:	Bonus points for clearing a full line
 */
 #pragma once
 #include "Board.h"
@@ -220,19 +223,24 @@ namespace NexusAssignment {
 
 		}
 #pragma endregion
+	//Loads the form
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 		board = new Board();
 		graphics = pictureBox1->CreateGraphics();
 		Drawer::init(graphics);
+		//Sets highscore from the highscore text file
 		label4->Text = Convert::ToString(board->HighScore());
 		
 	}
-
+	//Enables the timer tick
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 		board->runGame();
+		//constantly updating the score
 		label1->Text = Convert::ToString(board->getScore());
+		//Checks if game is over
 		if (board->GameOver() == true)
 		{
+			//Resets score and updates highscore
 			label4->Text = Convert::ToString(board->HighScore());
 			button1->Enabled = true;
 			button3->Enabled = false;
@@ -240,7 +248,7 @@ namespace NexusAssignment {
 			timer1->Enabled = false;
 		}
 	}
-
+	//button that starts/restarts the game
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		board->initBoard();
 		button1->Text = "Restart Game";
@@ -248,15 +256,15 @@ namespace NexusAssignment {
 		timer1->Enabled = true;
 		button3->Enabled = true;
 	}
-
+	//used for selecting cells and moving cells to a certain position
 	private: System::Void pictureBox1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		board->pickCell(e->X, e->Y);
 	}
-
+	//exits the game
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 		this->Close();
 }
-
+	//reverses a move
 private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
 		board->boardUndo();
 }

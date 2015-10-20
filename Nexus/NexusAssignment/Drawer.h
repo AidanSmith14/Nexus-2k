@@ -2,11 +2,13 @@
 #ifndef _DRAWER
 #define _DRAWER
 #include "Board.h"
+//header file for the drawer class
 
 using namespace System::Drawing;
 
 ref class Drawer
 {
+	//array of different coloured balls
 	static array <Bitmap^>^ ball = {
 		(Bitmap^)Image::FromFile("img\\free.png"),
 		(Bitmap^)Image::FromFile("img\\blue.png"),
@@ -17,8 +19,6 @@ ref class Drawer
 		(Bitmap^)Image::FromFile("img\\bleau.png"),
 		(Bitmap^)Image::FromFile("img\\selected.png"),
 	};
-	static Pen^ border = gcnew Pen(Color::White);
-	static Pen^ outline = gcnew Pen(Color::Black);
 	static Graphics^ formGraphics;
 public:
 	static void init(Graphics^);
